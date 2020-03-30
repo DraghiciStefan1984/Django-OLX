@@ -1,0 +1,6 @@
+product list
+{% if product_list %}
+    {% for product in product_list %}
+    {{product.name}}
+    {% endfor %}
+{% endif %}
