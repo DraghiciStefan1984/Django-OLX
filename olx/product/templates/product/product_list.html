@@ -486,13 +486,19 @@
 					{% if product_list.has_other_pages %}
 					<ul class="pagination pagination-sm">
 						{% if product_list.has_previous %}
-							<li><a href="#">Prev</a></li>
+							<li><a href="?page={{ product_list.previous_page_number }}">Prev</a></li>
 						{% else %}
 							<li class="disabled"></li>
 						{% endif %}
-						<li><a href="#">1</a></li>
+						{% for page in product_list.paginator.page_range %}
+							{% if product_list.number==page %}
+								<li><a href="">{{page}}</a></li>
+							{% else %}
+								<li><a href="?page={{page}}">{{page}}</a></li>
+							{% endif %}
+						{% endfor %}
 						{% if product_list.has_next %}
-							<li><a href="#">Next</a></li>
+							<li><a href="?page={{ product_list.next_page_number }}">Next</a></li>
 						{% else %}
 							<li class="disabled"></li>
 						{% endif %}
