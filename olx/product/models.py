@@ -30,6 +30,7 @@ class Product(models.Model):
 class Category(models.Model):
     category_name=models.CharField(max_length=50)
     image=models.ImageField(upload_to='products/', blank=True, null=True)
+    slug=models.SlugField(blank=True, null=True)
 
     class Meta:
         verbose_name='Category'
@@ -37,6 +38,11 @@ class Category(models.Model):
 
     def __str__(self):
         return self.category_name
+
+    def save(self, *args, **kwargs):
+        if not self.slug and self.category_name:
+            self.slug=slugify(self.category_name)
+            super().save(*args, **kwargs)
 
 
 class Brand(models.Model):
