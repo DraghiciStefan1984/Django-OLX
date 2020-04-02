@@ -58,9 +58,10 @@
 		<div class="ads-grid">
 			<div class="side-bar col-md-3">
 				<div class="search-hotel">
-				<h3 class="sear-head">Name contains</h3>
-				<form>
-					<input type="text" value="Product name..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Product name...';}" required="">
+				<h3 class="sear-head">Search</h3>
+				<form method="GET" action="{% url 'products:product_list' %}">
+				{% csrf_token %}
+					<input type="text" name="q" value="Product name..." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Product name...';}" required="">
 					<input type="submit" value=" ">
 				</form>
 			</div>
@@ -113,7 +114,7 @@
 							<li class="disabled"></li>
 						{% endif %}
 						{% for page in product_list.paginator.page_range %}
-							{% if product_list.number==page %}
+							{% if product_list.number == page %}
 								<li><a href="">{{page}}</a></li>
 							{% else %}
 								<li><a href="?page={{page}}">{{page}}</a></li>
